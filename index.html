@@ -168,6 +168,72 @@
       touch-action: none;
     }
 
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+    }
+
+    .uneven-button {
+      background-color: #9b30ff; /* Bright purple */
+      color: #fff;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 18px;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      border: none;
+      position: relative;
+      cursor: pointer;
+      overflow: visible;
+      transition: all 0.3s;
+      z-index: 1;
+    }
+
+    .uneven-button::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      background: none;
+      border: 4px solid #cc33ff;
+      z-index: -1;
+      filter: url('#sketchy-filter');
+      animation: wobble 3s ease-in-out infinite;
+    }
+    
+    .uneven-button::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: none;
+      border: 2px solid #ff66ff;
+      z-index: -1;
+      filter: url('#sketchy-filter');
+      animation: wobble 4s ease-in-out infinite reverse;
+    }
+
+    @keyframes wobble {
+      0%, 100% {
+        transform: rotate(-1deg) scale(1.01);
+      }
+      25% {
+        transform: rotate(0deg) scale(1);
+      }
+      50% {
+        transform: rotate(1deg) scale(1.01);
+      }
+      75% {
+        transform: rotate(0deg) scale(1);
+      }
+    }
     @media (max-width: 768px) {
       .header, .footer {
         height: 300px;
@@ -202,13 +268,28 @@
   </style>
 </head>
 <body>
+  <svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+      <filter id="filter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" result="wavy" />
+      </filter>
+      <filter id="sketchy-filter">
+        <feTurbulence type="turbulence" baseFrequency="0.1" numOctaves="2" result="noise" seed="3"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" result="sketch"/>
+        <feMorphology operator="dilate" radius="1" in="sketch" result="outline"/>
+        <feComposite in="outline" in2="sketch" operator="out" result="outline"/>
+      </filter>
+    </defs>
+  </svg>
+  
   <div class="header">
     <img src="assets/surfer-lady.png" alt="Surfer Lady" class="surfer" />
     <img src="assets/floppy.png" alt="Floppy" class="floating-icon" />
     <img src="assets/coffee.png" alt="Coffee" class="floating-icon" />
     <img src="assets/android-pxl.png" alt="Android" class="floating-icon" />
 	<img src="assets/ramen-pxl.png" alt="Ramen" class="floating-icon" />
-    <div class="text-banner">Lead Android Engineer</div>
+    <div class="text-banner">HELLO WORLD</div>
   </div>
 
   <div class="avatar-container">
@@ -219,8 +300,11 @@
     <img src="assets/flying-kittie.png" alt="Green Dolphin" class="dolphin" />
   </div>
   
+  <div class="button-container">
+    <a href="pro.html" class="uneven-button">Take me out of here</a>
+  </div>
+
   <div class="footer">
-	<!-- <div class="text-banner">Thanks for Surfing!</div> -->
     <canvas id="pingPongCanvas" width="600" height="200"></canvas>
   </div>
 
