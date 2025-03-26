@@ -15,14 +15,26 @@
       height: 200px;
       width: 100%;
       overflow: hidden;
-      background: url("data:image/svg+xml,%3Csvg width='400' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q30 40 60 20 T120 20 T180 20 T240 20 T300 20 T360 20 T420 20' stroke='%23fff' stroke-width='10' fill='none'/%3E%3Cpath d='M0 80 Q25 100 50 80 T100 80 T150 80 T200 80 T250 80 T300 80 T350 80' stroke='%23fff' stroke-width='8' fill='none'/%3E%3Cpath d='M0 140 Q40 120 80 140 T160 140 T240 140 T320 140 T400 140' stroke='%23fff' stroke-width='6' fill='none'/%3E%3C/svg%3E");
+      background: url("assets/zebra.svg");
       background-size: 400px 200px;
-      animation: bgScroll 20s linear infinite;
+    }
+    
+    .header {
+      animation: bgScrollRight 20s linear infinite;
+    }
+    
+    .footer {
+      animation: bgScrollLeft 20s linear infinite;
     }
 
-    @keyframes bgScroll {
+    @keyframes bgScrollRight {
       0% { background-position: 0 0; }
       100% { background-position: 400px 0; }
+    }
+    
+    @keyframes bgScrollLeft {
+      0% { background-position: 400px 0; }
+      100% { background-position: 0 0; }
     }
 
     .surfer {
@@ -145,6 +157,57 @@
       animation: glow 3s ease-in-out infinite;
     }
 
+    .avatar.glitch {
+      animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both;
+    }
+
+    @keyframes glitch {
+      0% {
+        transform: translate(0);
+        filter: hue-rotate(0deg);
+      }
+      10% {
+        transform: translate(-5px, 5px);
+        filter: hue-rotate(90deg) saturate(200%);
+      }
+      20% {
+        transform: translate(5px, -5px);
+        filter: hue-rotate(180deg) contrast(200%);
+      }
+      30% {
+        transform: translate(-5px, -5px);
+        filter: hue-rotate(270deg) blur(1px);
+      }
+      40% {
+        transform: translate(5px, 5px);
+        filter: invert(100%);
+      }
+      50% {
+        transform: translate(0);
+        filter: hue-rotate(0deg);
+      }
+      60% {
+        transform: translate(-5px, 5px) skewX(10deg);
+        filter: saturate(200%) brightness(150%);
+      }
+      70% {
+        transform: translate(5px, -5px) skewX(-10deg);
+        filter: contrast(200%) brightness(50%);
+      }
+      80% {
+        transform: translate(-3px, -3px) scale(1.05);
+        filter: blur(2px);
+      }
+      90% {
+        transform: translate(3px, 3px) scale(0.95);
+        filter: hue-rotate(180deg);
+      }
+      100% {
+        transform: translate(0);
+        filter: none;
+      }
+    }
+
     @keyframes glow {
       0%, 100% { box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.6); }
       50% { box-shadow: 0 0 25px 10px rgba(0, 255, 0, 0.8); }
@@ -173,6 +236,7 @@
       justify-content: center;
       align-items: center;
       height: 100px;
+      padding-bottom: 50px;
     }
 
     .uneven-button {
@@ -309,5 +373,32 @@
   </div>
 
   <script src="assets/js/ping-pong.js"></script>
+  
+  <script>
+    // Avatar glitch effect on scroll
+    const avatar = document.querySelector('.avatar');
+    let lastScrollTop = 0;
+    let glitchTimeout;
+    
+    window.addEventListener('scroll', function() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Clear any existing timeout to prevent multiple glitches stacking
+      clearTimeout(glitchTimeout);
+      
+      // Only trigger glitch if scrolling more than a small threshold
+      if (Math.abs(scrollTop - lastScrollTop) > 5) {
+        // Add glitch class
+        avatar.classList.add('glitch');
+        
+        // Remove glitch class after animation completes
+        glitchTimeout = setTimeout(() => {
+          avatar.classList.remove('glitch');
+        }, 300);
+        
+        lastScrollTop = scrollTop;
+      }
+    });
+  </script>
 </body>
 </html>
