@@ -44,6 +44,16 @@
       transform: translateX(-50%);
       width: 150px;
       animation: bob 2s ease-in-out infinite;
+      cursor: pointer;
+    }
+    
+    .surfer.rotating {
+      animation: rotate360 1s linear;
+    }
+    
+    @keyframes rotate360 {
+      from { transform: translateX(-50%) rotate(0deg); }
+      to { transform: translateX(-50%) rotate(360deg); }
     }
 
     @keyframes bob {
@@ -133,10 +143,30 @@
       100% { left: calc(100% + 120px); }
     }
 
+    @keyframes swim-loop-reverse {
+      0% { right: -120px; }
+      50% { right: calc(100% + 120px); }
+      50.01% { right: -120px; }
+      100% { right: calc(100% + 120px); }
+    }
+
     @keyframes wiggle {
       0%, 100% { rotate: 0deg; }
       25% { rotate: 3deg; }
       75% { rotate: -3deg; }
+    }
+
+    .pika-container {
+      position: relative;
+      height: 120px;
+      overflow: hidden;
+    }
+
+    .pika {
+      width: 100px;
+      position: absolute;
+      top: 10px;
+      animation: swim-loop-reverse 20s linear infinite, wiggle 1s ease-in-out infinite;
     }
 
     .avatar-container {
@@ -492,6 +522,10 @@
   <div class="dolphin-container">
     <img src="assets/flying-kittie.png" alt="Green Dolphin" class="dolphin" />
   </div>
+
+  <div class="pika-container">
+    <img src="assets/pika.png" alt="Pika" class="pika" />
+  </div>
   
   <div class="button-container">
     <a href="pro.html" class="uneven-button">Take me out of here</a>
@@ -527,6 +561,33 @@
         
         lastScrollTop = scrollTop;
       }
+    });
+    
+    // Surfer lady rotation on click
+    document.addEventListener('DOMContentLoaded', function() {
+      const surfer = document.querySelector('.surfer');
+      
+      surfer.addEventListener('click', function() {
+        // Prevent multiple clicks during animation
+        if (!surfer.classList.contains('rotating')) {
+          // Reset animation by removing and adding class
+          surfer.classList.add('rotating');
+          
+          // Play a fun sound effect
+          const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT18A');
+          audio.volume = 0.3;
+          try {
+            audio.play().catch(e => console.log('Audio play failed:', e));
+          } catch (e) {
+            console.log('Audio play error:', e);
+          }
+          
+          // Remove the class after animation completes
+          setTimeout(() => {
+            surfer.classList.remove('rotating');
+          }, 1000);
+        }
+      });
     });
     
     // Mobile optimization
