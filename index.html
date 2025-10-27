@@ -1,655 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anastasia Pedersen</title>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>Anastasia Pedersen | CV</title>
   <style>
-    body {
+    * {
       margin: 0;
-      background: #000;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .header, .footer {
-      position: relative;
-      height: 200px;
-      width: 100%;
-      overflow: hidden;
-      background: url("assets/zebra.svg");
-      background-size: 400px 200px;
-    }
-    
-    .header {
-      animation: bgScrollRight 20s linear infinite;
-    }
-    
-    .footer {
-      animation: bgScrollLeft 20s linear infinite;
+    body {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 20px;
     }
 
-    @keyframes bgScrollRight {
-      0% { background-position: 0 0; }
-      100% { background-position: 400px 0; }
-    }
-    
-    @keyframes bgScrollLeft {
-      0% { background-position: 400px 0; }
-      100% { background-position: 0 0; }
-    }
-
-    .surfer {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 150px;
-      animation: bob 2s ease-in-out infinite;
-      cursor: pointer;
-    }
-    
-    .surfer.rotating {
-      animation: rotate360 1s linear;
-    }
-    
-    @keyframes rotate360 {
-      from { transform: translateX(-50%) rotate(0deg); }
-      to { transform: translateX(-50%) rotate(360deg); }
+    .editor-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #1e1e1e;
+      border: 1px solid #2d2d2d;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      display: flex;
     }
 
-    @keyframes bob {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    .line-numbers {
+      width: 60px;
+      background: #252526;
+      color: #858585;
+      text-align: right;
+      padding: 20px 10px;
+      user-select: none;
+      border-right: 1px solid #2d2d2d;
+      flex-shrink: 0;
     }
 
-    .floating-icon {
-      position: absolute;
-      width: 40px;
-      animation: float 4s ease-in-out infinite;
+    .line-numbers div {
+      line-height: 1.6;
     }
 
-    .floating-icon:nth-child(2) {
-      left: 30%;
-      top: 20px;
-      animation-delay: 0s;
-    }
-    .floating-icon:nth-child(3) {
-      left: 60%;
-      top: 50px;
-      animation-delay: 1s;
-    }
-    .floating-icon:nth-child(4) {
-      left: 80%;
-      top: 10px;
-      animation-delay: 2s;
-    }
-	.floating-icon:nth-child(5) {
-      left: 5%;
-      top: 90px;
-      animation-delay: 0s;
+    .code-content {
+      padding: 20px;
+      overflow-x: auto;
+      flex-grow: 1;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-
-    .text-banner {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+    .tag {
+      color: #569cd6;
       font-size: 32px;
       font-weight: bold;
-      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
-      background-size: 400%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: rainbowShimmer 8s linear infinite;
     }
 
-    .footer .text-banner {
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 24px;
-      color: #00ff00;
-      text-shadow: 0 0 10px #00ff00;
+    .cv-tag {
+      color: #d4d4d4;
     }
 
-    @keyframes rainbowShimmer {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
+    .tag-name {
+      color: #cc7832;
     }
 
-    .dolphin-container {
-      position: relative;
-      height: 120px;
-      overflow: hidden;
+    .string {
+      color: #6a8759;
     }
 
-    .dolphin {
-      width: 100px;
-      position: absolute;
-      top: 10px;
-      animation: swim-loop 20s linear infinite, wiggle 1s ease-in-out infinite;
+    .comment {
+      color: #6a9955;
+      font-style: italic;
     }
 
-    @keyframes swim-loop {
-      0% { left: -120px; }
-      50% { left: calc(100% + 120px); }
-      50.01% { left: -120px; }
-      100% { left: calc(100% + 120px); }
+    .section-header {
+      color: #c586c0;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 10px;
     }
 
-    @keyframes swim-loop-reverse {
-      0% { 
-        right: -120px; 
-        transform: scaleX(1);
-      }
-      49.99% { 
-        right: calc(100% + 120px); 
-        transform: scaleX(1);
-      }
-      50% { 
-        right: calc(100% + 120px); 
-        transform: scaleX(-1);
-      }
-      99.99% { 
-        right: -120px; 
-        transform: scaleX(-1);
-      }
-      100% { 
-        right: -120px; 
-        transform: scaleX(1);
-      }
+    .job-title {
+      color: #dcdcaa;
+      font-weight: 500;
     }
 
-    @keyframes wiggle {
-      0%, 100% { rotate: 0deg; }
-      25% { rotate: 3deg; }
-      75% { rotate: -3deg; }
+    .company {
+      color: #4ec9b0;
+      text-transform: uppercase;
     }
 
-    .pika-container {
-      position: relative;
-      height: 120px;
-      overflow: hidden;
+    .date {
+      color: #b5cea8;
     }
 
-    .pika {
-      width: 100px;
-      position: absolute;
-      top: 10px;
-      animation: swim-loop-reverse 20s linear infinite;
-    }
-    
-    .pika::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: url('assets/pika.png') no-repeat;
-      background-size: contain;
-      animation: wiggle 1s ease-in-out infinite;
+    .skill-item {
+      color: #9cdcfe;
     }
 
-    .avatar-container {
-      position: relative;
-      height: 200px;
-      width: 100%;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-top: 100px;
-      padding-bottom: 100px;
+    .text-content {
+      color: #d4d4d4;
     }
 
-    .avatar {
-      position: relative;
-      width: 150px;
-      border-radius: 50%;
-      box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.6);
-      animation: glow 3s ease-in-out infinite;
-    }
-
-    .avatar.glitch {
-      animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both;
-    }
-
-    @keyframes glitch {
-      0% {
-        transform: translate(0);
-        filter: hue-rotate(0deg);
-      }
-      10% {
-        transform: translate(-5px, 5px);
-        filter: hue-rotate(90deg) saturate(200%);
-      }
-      20% {
-        transform: translate(5px, -5px);
-        filter: hue-rotate(180deg) contrast(200%);
-      }
-      30% {
-        transform: translate(-5px, -5px);
-        filter: hue-rotate(270deg) blur(1px);
-      }
-      40% {
-        transform: translate(5px, 5px);
-        filter: invert(100%);
-      }
-      50% {
-        transform: translate(0);
-        filter: hue-rotate(0deg);
-      }
-      60% {
-        transform: translate(-5px, 5px) skewX(10deg);
-        filter: saturate(200%) brightness(150%);
-      }
-      70% {
-        transform: translate(5px, -5px) skewX(-10deg);
-        filter: contrast(200%) brightness(50%);
-      }
-      80% {
-        transform: translate(-3px, -3px) scale(1.05);
-        filter: blur(2px);
-      }
-      90% {
-        transform: translate(3px, 3px) scale(0.95);
-        filter: hue-rotate(180deg);
-      }
-      100% {
-        transform: translate(0);
-        filter: none;
-      }
-    }
-
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.6); }
-      50% { box-shadow: 0 0 25px 10px rgba(0, 255, 0, 0.8); }
-    }
-
-    .footer {
-      position: relative;
-      height: 250px;
-      width: 100%;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #pingPongCanvas {
-      display: block;
-      margin: 0 auto;
-      max-width: 100%;
-      touch-action: none;
-      padding-top: 100px;
-      padding-bottom: 100px;
-    }
-
-    .button-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100px;
-      padding-bottom: 100px;
-    }
-
-    .uneven-button {
-      background-color: #9b30ff; /* Bright purple */
-      color: #fff;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
+    .name {
+      color: #dcdcaa;
       font-size: 18px;
-      font-family: "Comic Sans MS", cursive, sans-serif;
-      border: none;
-      position: relative;
-      cursor: pointer;
-      overflow: visible;
-      transition: all 0.3s;
-      z-index: 1;
+      font-weight: 600;
+      margin-bottom: 5px;
     }
 
-    .uneven-button::before {
-      content: '';
-      position: absolute;
-      top: -6px;
-      left: -6px;
-      right: -6px;
-      bottom: -6px;
-      background: none;
-      border: 4px solid #cc33ff;
-      z-index: -1;
-      filter: url('#sketchy-filter');
-      animation: wobble 3s ease-in-out infinite;
-    }
-    
-    .uneven-button::after {
-      content: '';
-      position: absolute;
-      top: -3px;
-      left: -3px;
-      right: -3px;
-      bottom: -3px;
-      background: none;
-      border: 2px solid #ff66ff;
-      z-index: -1;
-      filter: url('#sketchy-filter');
-      animation: wobble 4s ease-in-out infinite reverse;
+    .degree {
+      color: #b5cea8;
     }
 
-    @keyframes wobble {
-      0%, 100% {
-        transform: rotate(-1deg) scale(1.01);
-      }
-      25% {
-        transform: rotate(0deg) scale(1);
-      }
-      50% {
-        transform: rotate(1deg) scale(1.01);
-      }
-      75% {
-        transform: rotate(0deg) scale(1);
-      }
+    .major {
+      color: #569cd6;
     }
+
+    .university {
+      color: #569cd6;
+    }
+
+    .city {
+      color: #569cd6;
+    }
+
+    .class-name {
+      color: #4ec9b0;
+    }
+
+    .bullet {
+      color: #808080;
+    }
+
+    .javadoc {
+      color: #6a9955;
+      font-style: italic;
+    }
+
+    .javadoc-tag {
+      color: #6a9955;
+      font-weight: 600;
+    }
+
+    .javadoc-link {
+      color: #569cd6;
+      text-decoration: none;
+    }
+
+    .javadoc-link:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 768px) {
-      .header, .footer {
-        height: 180px;
-        background-size: 300px 180px;
+      body {
+        padding: 10px;
+        font-size: 12px;
       }
 
-      .surfer {
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100px;
-        bottom: 20px;
+      .line-numbers {
+        width: 40px;
+        padding: 10px 5px;
+        font-size: 10px;
       }
 
-      .floating-icon {
-        width: 30px;
-      }
-      
-      .floating-icon:nth-child(2) {
-        left: 20%;
-      }
-      
-      .floating-icon:nth-child(3) {
-        left: 70%;
-      }
-      
-      .floating-icon:nth-child(4) {
-        left: 85%;
-      }
-      
-      .floating-icon:nth-child(5) {
-        left: 5%;
+      .code-content {
+        padding: 10px;
       }
 
-      .text-banner {
+      .tag {
         font-size: 24px;
-        bottom: 20px;
       }
 
-      .footer .text-banner {
-        top: 50%;
-        font-size: 20px;
-      }
-
-      .dolphin {
-        width: 80px;
-      }
-      
-      .avatar {
-        width: 120px;
-      }
-      
-      .avatar-container {
-        height: 160px;
-      }
-      
-      .dolphin-container {
-        height: 100px;
-      }
-      
-      .button-container {
-        height: 80px;
-        padding-bottom: 30px;
-      }
-      
-      .uneven-button {
-        padding: 12px 24px;
+      .name {
         font-size: 16px;
       }
+
+      .section-header {
+        font-size: 13px;
+        margin-top: 15px;
+      }
+
+      .job-title {
+        font-size: 12px;
+      }
+
+      .company {
+        font-size: 11px;
+      }
     }
-    
+
     @media (max-width: 480px) {
-      .header, .footer {
-        height: 150px;
-        background-size: 250px 150px;
+      body {
+        padding: 5px;
+        font-size: 11px;
       }
-      
-      .surfer {
-        width: 80px;
-        bottom: 15px;
+
+      .editor-container {
+        border: none;
       }
-      
-      .floating-icon {
-        width: 25px;
+
+      .line-numbers {
+        width: 30px;
+        padding: 10px 3px;
+        font-size: 9px;
       }
-      
-      .text-banner {
+
+      .code-content {
+        padding: 8px;
+      }
+
+      .tag {
         font-size: 20px;
-        bottom: 15px;
       }
-      
-      .avatar {
-        width: 100px;
-      }
-      
-      .avatar-container {
-        height: 140px;
-      }
-      
-      .dolphin-container {
-        height: 80px;
-      }
-      
-      .dolphin {
-        width: 60px;
-        top: 5px;
-      }
-      
-      .button-container {
-        height: 70px;
-        padding-bottom: 20px;
-      }
-      
-      .uneven-button {
-        padding: 10px 20px;
+
+      .name {
         font-size: 14px;
       }
-      
-      #pingPongCanvas {
-        height: 150px;
+
+      .section-header {
+        font-size: 12px;
+        margin-top: 12px;
       }
-    }
-    
-    @media (max-width: 320px) {
-      .header, .footer {
-        height: 120px;
-        background-size: 200px 120px;
+
+      .job-title {
+        font-size: 11px;
       }
-      
-      .surfer {
-        width: 60px;
+
+      .company {
+        font-size: 10px;
       }
-      
-      .floating-icon {
-        width: 20px;
-      }
-      
-      .text-banner {
-        font-size: 16px;
-      }
-      
-      .avatar {
-        width: 80px;
-      }
-      
-      .avatar-container {
-        height: 120px;
-      }
-      
-      .dolphin {
-        width: 50px;
-      }
-      
-      #pingPongCanvas {
-        height: 120px;
+
+      .javadoc {
+        font-size: 10px;
       }
     }
   </style>
 </head>
+
 <body>
-  <svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-      <filter id="filter">
-        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" result="noise" />
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" result="wavy" />
-      </filter>
-      <filter id="sketchy-filter">
-        <feTurbulence type="turbulence" baseFrequency="0.1" numOctaves="2" result="noise" seed="3"/>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" result="sketch"/>
-        <feMorphology operator="dilate" radius="1" in="sketch" result="outline"/>
-        <feComposite in="outline" in2="sketch" operator="out" result="outline"/>
-      </filter>
-    </defs>
-  </svg>
-  
-  <div class="header">
-    <img src="assets/surfer-lady.png" alt="Surfer Lady" class="surfer" />
-    <img src="assets/floppy.png" alt="Floppy" class="floating-icon" />
-    <img src="assets/coffee.png" alt="Coffee" class="floating-icon" />
-    <img src="assets/android-pxl.png" alt="Android" class="floating-icon" />
-	<img src="assets/ramen-pxl.png" alt="Ramen" class="floating-icon" />
-    <div class="text-banner">HELLO WORLD</div>
+  <div class="editor-container">
+    <div class="line-numbers" id="lineNumbers"></div>
+    <div class="code-content">
+      <span class="tag">&lt;<span class="cv-tag">cv</span>&gt;</span>
+
+      <div class="name">Anastasia Pedersen</div>
+      <div class="comment">(Lead_Android_Engineer)</div>
+
+      <div class="javadoc">/**</div>
+      <div class="javadoc"> * <span class="javadoc-tag">@author</span> Anastasia Pedersen</div>
+      <div class="javadoc"> * <span class="javadoc-tag">@email</span> <a href="mailto:ana.pedersen.me@gmail.com"
+          class="javadoc-link">ana.pedersen.me@gmail.com</a></div>
+      <div class="javadoc"> * <span class="javadoc-tag">@website</span> <a
+          href="https://bananavoid.github.io/about-me/index" class="javadoc-link"
+          target="_blank">bananavoid.github.io/about-me</a></div>
+      <div class="javadoc"> * <span class="javadoc-tag">@phone</span> +46722366641</div>
+      <div class="javadoc"> * <span class="javadoc-tag">@location</span> Gothenburg, Sweden</div>
+      <div class="javadoc"> */</div>
+
+      <div class="section-header">/summary</div>
+      <div class="text-content">Experienced mobile engineer with 13+ years of expertise in building high-quality
+        apps.</div>
+      <div class="text-content">Passionate about smooth UI experience and clean architecture. Led teams and
+        delivered</div>
+      <div class="text-content">features for millions of users worldwide.</div>
+
+      <div class="section-header">/work experience</div>
+
+      <div class="job-title">(Lead Android Engineer)</div>
+      <div><span class="company">FISHBRAIN</span> <span class="date">2018-2025</span></div>
+      <div class="text-content"> <span class="bullet">•</span> Led Android guild and established architecture
+        patterns</div>
+      <div class="text-content"> <span class="bullet">•</span> Transitioned app to Jetpack Compose and Material 3
+      </div>
+      <div class="text-content"> <span class="bullet">•</span> Worked across Growth, Social, and Utility teams
+      </div>
+      <div class="text-content"> <span class="bullet">•</span> Integrated Revenue Cat, Firebase, AWS Cognito,
+        Sendbird</div>
+
+      <div class="job-title">(Senior Android Engineer)</div>
+      <div><span class="company">LIFESLICE</span> <span class="date">2017-2018</span></div>
+      <div class="text-content"> <span class="bullet">•</span> Built video editing features using NDK, FFmpeg,
+        OpenGL</div>
+      <div class="text-content"> <span class="bullet">•</span> Achieved 30% increase in user engagement</div>
+      <div class="text-content"> <span class="bullet">•</span> Optimized video rendering across Android devices
+      </div>
+
+      <div class="job-title">(Lead Engineer)</div>
+      <div><span class="company">RAWFISH</span> <span class="date">2016-2017</span></div>
+      <div class="text-content"> <span class="bullet">•</span> Led mobile development team</div>
+      <div class="text-content"> <span class="bullet">•</span> Architected cross-platform solutions</div>
+
+      <div class="job-title">(Mobile Engineer)</div>
+      <div><span class="company">FREELANCE</span> <span class="date">2015-2016</span></div>
+      <div class="text-content"> <span class="bullet">•</span> Android, iOS and cross-platform development</div>
+
+      <div class="section-header">/skills</div>
+      <div class="text-content"> <span class="skill-item">Android Development</span></div>
+      <div class="text-content"> <span class="skill-item">Kotlin</span> • <span class="skill-item">Java</span> •
+        <span class="skill-item">Jetpack Compose</span>
+      </div>
+      <div class="text-content"> <span class="skill-item">Clean Architecture</span> • <span
+          class="skill-item">MVI/Redux</span></div>
+      <div class="text-content"> <span class="skill-item">GraphQL</span> • <span class="skill-item">REST
+          APIs</span></div>
+      <div class="text-content"> <span class="skill-item">CI/CD</span> • <span class="skill-item">Git</span></div>
+
+      <div class="section-header">/education</div>
+
+      <div><span class="date">2010 - 2015</span> <span class="degree">Barchelor</span></div>
+      <div class="major">Electronics and Informatics</div>
+      <div class="university">State Technical University</div>
+      <div class="city">Dnipro, Ukraine</div>
+
+      <div class="section-header">/professional development</div>
+
+      <div><span class="class-name">class/course/workshop</span></div>
+      <div class="text-content">Google I/O</div>
+      <div class="city">SF</div>
+
+      <div><span class="class-name">class/course/workshop</span></div>
+      <div class="text-content">DroidCon</div>
+      <div class="city">London</div>
+
+      <div><span class="class-name">class/course/workshop</span></div>
+      <div class="text-content">DroidCon</div>
+      <div class="city">Lisbon</div>
+
+      <div><span class="class-name">class/course/workshop</span></div>
+      <div class="text-content">TiConf</div>
+      <div class="city">Amsterdam</div>
+
+      <div><span class="class-name">class/course/workshop</span></div>
+      <div class="text-content">KotlinConf</div>
+      <div class="city">Munich</div>
+
+      <span class="tag">&lt;/<span class="cv-tag">cv</span>&gt;</span>
+    </div>
   </div>
 
-  <div class="avatar-container">
-    <img src="assets/img/avatar.jpg" alt="Avatar" class="avatar" />
-  </div>
-
-  <div class="dolphin-container">
-    <img src="assets/flying-kittie.png" alt="Green Dolphin" class="dolphin" />
-  </div>
-
-  <div class="pika-container">
-    <div class="pika"></div>
-  </div>
-  
-  <div class="button-container">
-    <a href="pro.html" class="uneven-button">Take me out of here</a>
-  </div>
-
-  <div class="footer">
-    <canvas id="pingPongCanvas" width="600" height="200"></canvas>
-  </div>
-
-  <script src="assets/js/ping-pong.js"></script>
-  
   <script>
-    // Avatar glitch effect on scroll
-    const avatar = document.querySelector('.avatar');
-    let lastScrollTop = 0;
-    let glitchTimeout;
-    
-    window.addEventListener('scroll', function() {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      
-      // Clear any existing timeout to prevent multiple glitches stacking
-      clearTimeout(glitchTimeout);
-      
-      // Only trigger glitch if scrolling more than a small threshold
-      if (Math.abs(scrollTop - lastScrollTop) > 5) {
-        // Add glitch class
-        avatar.classList.add('glitch');
-        
-        // Remove glitch class after animation completes
-        glitchTimeout = setTimeout(() => {
-          avatar.classList.remove('glitch');
-        }, 300);
-        
-        lastScrollTop = scrollTop;
-      }
-    });
-    
-    // Surfer lady rotation on click
-    document.addEventListener('DOMContentLoaded', function() {
-      const surfer = document.querySelector('.surfer');
-      
-      surfer.addEventListener('click', function() {
-        // Prevent multiple clicks during animation
-        if (!surfer.classList.contains('rotating')) {
-          // Reset animation by removing and adding class
-          surfer.classList.add('rotating');
-          
-          // Play a fun sound effect
-          const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT18A');
-          audio.volume = 0.3;
-          try {
-            audio.play().catch(e => console.log('Audio play failed:', e));
-          } catch (e) {
-            console.log('Audio play error:', e);
-          }
-          
-          // Remove the class after animation completes
-          setTimeout(() => {
-            surfer.classList.remove('rotating');
-          }, 1000);
-        }
-      });
-    });
-    
-    // Mobile optimization
-    document.addEventListener('DOMContentLoaded', function() {
-      // Check if it's a mobile device
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      
-      if (isMobile) {
-        // Add mobile-specific class to body for additional styling if needed
-        document.body.classList.add('mobile-device');
-        
-        // Add touch start message for ping pong game
-        const footer = document.querySelector('.footer');
-        const touchMessage = document.createElement('div');
-        touchMessage.className = 'touch-message';
-        touchMessage.innerHTML = 'Touch and drag to move paddle';
-        touchMessage.style.position = 'absolute';
-        touchMessage.style.top = '10px';
-        touchMessage.style.left = '50%';
-        touchMessage.style.transform = 'translateX(-50%)';
-        touchMessage.style.color = '#00ff00';
-        touchMessage.style.fontFamily = '"Comic Sans MS", cursive, sans-serif';
-        touchMessage.style.fontSize = '14px';
-        touchMessage.style.textShadow = '0 0 5px #00ff00';
-        touchMessage.style.zIndex = '10';
-        footer.appendChild(touchMessage);
-        
-        // Hide message after 5 seconds
-        setTimeout(() => {
-          touchMessage.style.opacity = '0';
-          touchMessage.style.transition = 'opacity 1s ease-out';
-        }, 5000);
-      }
-    });
+    // Generate line numbers
+    const codeContent = document.querySelector('.code-content');
+    const lineNumbers = document.getElementById('lineNumbers');
+    const lines = codeContent.innerHTML.split('\n').length;
+
+    for (let i = 1; i <= lines + 20; i++) {
+      const lineDiv = document.createElement('div');
+      lineDiv.textContent = i;
+      lineNumbers.appendChild(lineDiv);
+    }
   </script>
 </body>
+
 </html>

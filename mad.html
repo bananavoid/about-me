@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anastasia Pedersen</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+        }
+
+        .header,
+        .footer {
+            position: relative;
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            background: url("assets/zebra.svg");
+            background-size: 400px 200px;
+        }
+
+        .header {
+            animation: bgScrollRight 20s linear infinite;
+        }
+
+        .footer {
+            animation: bgScrollLeft 20s linear infinite;
+        }
+
+        @keyframes bgScrollRight {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 400px 0;
+            }
+        }
+
+        @keyframes bgScrollLeft {
+            0% {
+                background-position: 400px 0;
+            }
+
+            100% {
+                background-position: 0 0;
+            }
+        }
+
+        .surfer {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            animation: bob 2s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .surfer.rotating {
+            animation: rotate360 1s linear;
+        }
+
+        @keyframes rotate360 {
+            from {
+                transform: translateX(-50%) rotate(0deg);
+            }
+
+            to {
+                transform: translateX(-50%) rotate(360deg);
+            }
+        }
+
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating-icon {
+            position: absolute;
+            width: 40px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .floating-icon:nth-child(2) {
+            left: 30%;
+            top: 20px;
+            animation-delay: 0s;
+        }
+
+        .floating-icon:nth-child(3) {
+            left: 60%;
+            top: 50px;
+            animation-delay: 1s;
+        }
+
+        .floating-icon:nth-child(4) {
+            left: 80%;
+            top: 10px;
+            animation-delay: 2s;
+        }
+
+        .floating-icon:nth-child(5) {
+            left: 5%;
+            top: 90px;
+            animation-delay: 0s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .text-banner {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+            background-size: 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbowShimmer 8s linear infinite;
+        }
+
+        .footer .text-banner {
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        @keyframes rainbowShimmer {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .dolphin-container {
+            position: relative;
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .dolphin {
+            width: 100px;
+            position: absolute;
+            top: 10px;
+            animation: swim-loop 20s linear infinite, wiggle 1s ease-in-out infinite;
+        }
+
+        @keyframes swim-loop {
+            0% {
+                left: -120px;
+            }
+
+            50% {
+                left: calc(100% + 120px);
+            }
+
+            50.01% {
+                left: -120px;
+            }
+
+            100% {
+                left: calc(100% + 120px);
+            }
+        }
+
+        @keyframes swim-loop-reverse {
+            0% {
+                right: -120px;
+                transform: scaleX(1);
+            }
+
+            49.99% {
+                right: calc(100% + 120px);
+                transform: scaleX(1);
+            }
+
+            50% {
+                right: calc(100% + 120px);
+                transform: scaleX(-1);
+            }
+
+            99.99% {
+                right: -120px;
+                transform: scaleX(-1);
+            }
+
+            100% {
+                right: -120px;
+                transform: scaleX(1);
+            }
+        }
+
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                rotate: 0deg;
+            }
+
+            25% {
+                rotate: 3deg;
+            }
+
+            75% {
+                rotate: -3deg;
+            }
+        }
+
+        .pika-container {
+            position: relative;
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .pika {
+            width: 100px;
+            position: absolute;
+            top: 10px;
+            animation: swim-loop-reverse 20s linear infinite;
+        }
+
+        .pika::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('assets/pika.png') no-repeat;
+            background-size: contain;
+            animation: wiggle 1s ease-in-out infinite;
+        }
+
+        .avatar-container {
+            position: relative;
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+
+        .avatar {
+            position: relative;
+            width: 150px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.6);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .avatar.glitch {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+                filter: hue-rotate(0deg);
+            }
+
+            10% {
+                transform: translate(-5px, 5px);
+                filter: hue-rotate(90deg) saturate(200%);
+            }
+
+            20% {
+                transform: translate(5px, -5px);
+                filter: hue-rotate(180deg) contrast(200%);
+            }
+
+            30% {
+                transform: translate(-5px, -5px);
+                filter: hue-rotate(270deg) blur(1px);
+            }
+
+            40% {
+                transform: translate(5px, 5px);
+                filter: invert(100%);
+            }
+
+            50% {
+                transform: translate(0);
+                filter: hue-rotate(0deg);
+            }
+
+            60% {
+                transform: translate(-5px, 5px) skewX(10deg);
+                filter: saturate(200%) brightness(150%);
+            }
+
+            70% {
+                transform: translate(5px, -5px) skewX(-10deg);
+                filter: contrast(200%) brightness(50%);
+            }
+
+            80% {
+                transform: translate(-3px, -3px) scale(1.05);
+                filter: blur(2px);
+            }
+
+            90% {
+                transform: translate(3px, 3px) scale(0.95);
+                filter: hue-rotate(180deg);
+            }
+
+            100% {
+                transform: translate(0);
+                filter: none;
+            }
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.6);
+            }
+
+            50% {
+                box-shadow: 0 0 25px 10px rgba(0, 255, 0, 0.8);
+            }
+        }
+
+        .footer {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #pingPongCanvas {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            touch-action: none;
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            padding-bottom: 100px;
+        }
+
+        .uneven-button {
+            background-color: #9b30ff;
+            /* Bright purple */
+            color: #fff;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            border: none;
+            position: relative;
+            cursor: pointer;
+            overflow: visible;
+            transition: all 0.3s;
+            z-index: 1;
+        }
+
+        .uneven-button::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            background: none;
+            border: 4px solid #cc33ff;
+            z-index: -1;
+            filter: url('#sketchy-filter');
+            animation: wobble 3s ease-in-out infinite;
+        }
+
+        .uneven-button::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: none;
+            border: 2px solid #ff66ff;
+            z-index: -1;
+            filter: url('#sketchy-filter');
+            animation: wobble 4s ease-in-out infinite reverse;
+        }
+
+        @keyframes wobble {
+
+            0%,
+            100% {
+                transform: rotate(-1deg) scale(1.01);
+            }
+
+            25% {
+                transform: rotate(0deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(1deg) scale(1.01);
+            }
+
+            75% {
+                transform: rotate(0deg) scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .header,
+            .footer {
+                height: 180px;
+                background-size: 300px 180px;
+            }
+
+            .surfer {
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100px;
+                bottom: 20px;
+            }
+
+            .floating-icon {
+                width: 30px;
+            }
+
+            .floating-icon:nth-child(2) {
+                left: 20%;
+            }
+
+            .floating-icon:nth-child(3) {
+                left: 70%;
+            }
+
+            .floating-icon:nth-child(4) {
+                left: 85%;
+            }
+
+            .floating-icon:nth-child(5) {
+                left: 5%;
+            }
+
+            .text-banner {
+                font-size: 24px;
+                bottom: 20px;
+            }
+
+            .footer .text-banner {
+                top: 50%;
+                font-size: 20px;
+            }
+
+            .dolphin {
+                width: 80px;
+            }
+
+            .avatar {
+                width: 120px;
+            }
+
+            .avatar-container {
+                height: 160px;
+            }
+
+            .dolphin-container {
+                height: 100px;
+            }
+
+            .button-container {
+                height: 80px;
+                padding-bottom: 30px;
+            }
+
+            .uneven-button {
+                padding: 12px 24px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .header,
+            .footer {
+                height: 150px;
+                background-size: 250px 150px;
+            }
+
+            .surfer {
+                width: 80px;
+                bottom: 15px;
+            }
+
+            .floating-icon {
+                width: 25px;
+            }
+
+            .text-banner {
+                font-size: 20px;
+                bottom: 15px;
+            }
+
+            .avatar {
+                width: 100px;
+            }
+
+            .avatar-container {
+                height: 140px;
+            }
+
+            .dolphin-container {
+                height: 80px;
+            }
+
+            .dolphin {
+                width: 60px;
+                top: 5px;
+            }
+
+            .button-container {
+                height: 70px;
+                padding-bottom: 20px;
+            }
+
+            .uneven-button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            #pingPongCanvas {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 320px) {
+
+            .header,
+            .footer {
+                height: 120px;
+                background-size: 200px 120px;
+            }
+
+            .surfer {
+                width: 60px;
+            }
+
+            .floating-icon {
+                width: 20px;
+            }
+
+            .text-banner {
+                font-size: 16px;
+            }
+
+            .avatar {
+                width: 80px;
+            }
+
+            .avatar-container {
+                height: 120px;
+            }
+
+            .dolphin {
+                width: 50px;
+            }
+
+            #pingPongCanvas {
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1"
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <filter id="filter">
+                <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G"
+                    result="wavy" />
+            </filter>
+            <filter id="sketchy-filter">
+                <feTurbulence type="turbulence" baseFrequency="0.1" numOctaves="2" result="noise" seed="3" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"
+                    result="sketch" />
+                <feMorphology operator="dilate" radius="1" in="sketch" result="outline" />
+                <feComposite in="outline" in2="sketch" operator="out" result="outline" />
+            </filter>
+        </defs>
+    </svg>
+
+    <div class="header">
+        <img src="assets/surfer-lady.png" alt="Surfer Lady" class="surfer" />
+        <img src="assets/floppy.png" alt="Floppy" class="floating-icon" />
+        <img src="assets/coffee.png" alt="Coffee" class="floating-icon" />
+        <img src="assets/android-pxl.png" alt="Android" class="floating-icon" />
+        <img src="assets/ramen-pxl.png" alt="Ramen" class="floating-icon" />
+        <div class="text-banner">HELLO WORLD</div>
+    </div>
+
+    <div class="avatar-container">
+        <img src="assets/img/avatar.jpg" alt="Avatar" class="avatar" />
+    </div>
+
+    <div class="dolphin-container">
+        <img src="assets/flying-kittie.png" alt="Green Dolphin" class="dolphin" />
+    </div>
+
+    <div class="pika-container">
+        <div class="pika"></div>
+    </div>
+
+    <div class="button-container">
+        <a href="pro.html" class="uneven-button">Take me out of here</a>
+    </div>
+
+    <div class="footer">
+        <canvas id="pingPongCanvas" width="600" height="200"></canvas>
+    </div>
+
+    <script src="assets/js/ping-pong.js"></script>
+
+    <script>
+        // Avatar glitch effect on scroll
+        const avatar = document.querySelector('.avatar');
+        let lastScrollTop = 0;
+        let glitchTimeout;
+
+        window.addEventListener('scroll', function () {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Clear any existing timeout to prevent multiple glitches stacking
+            clearTimeout(glitchTimeout);
+
+            // Only trigger glitch if scrolling more than a small threshold
+            if (Math.abs(scrollTop - lastScrollTop) > 5) {
+                // Add glitch class
+                avatar.classList.add('glitch');
+
+                // Remove glitch class after animation completes
+                glitchTimeout = setTimeout(() => {
+                    avatar.classList.remove('glitch');
+                }, 300);
+
+                lastScrollTop = scrollTop;
+            }
+        });
+
+        // Surfer lady rotation on click
+        document.addEventListener('DOMContentLoaded', function () {
+            const surfer = document.querySelector('.surfer');
+
+            surfer.addEventListener('click', function () {
+                // Prevent multiple clicks during animation
+                if (!surfer.classList.contains('rotating')) {
+                    // Reset animation by removing and adding class
+                    surfer.classList.add('rotating');
+
+                    // Play a fun sound effect
+                    const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT18A');
+                    audio.volume = 0.3;
+                    try {
+                        audio.play().catch(e => console.log('Audio play failed:', e));
+                    } catch (e) {
+                        console.log('Audio play error:', e);
+                    }
+
+                    // Remove the class after animation completes
+                    setTimeout(() => {
+                        surfer.classList.remove('rotating');
+                    }, 1000);
+                }
+            });
+        });
+
+        // Mobile optimization
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if it's a mobile device
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                // Add mobile-specific class to body for additional styling if needed
+                document.body.classList.add('mobile-device');
+
+                // Add touch start message for ping pong game
+                const footer = document.querySelector('.footer');
+                const touchMessage = document.createElement('div');
+                touchMessage.className = 'touch-message';
+                touchMessage.innerHTML = 'Touch and drag to move paddle';
+                touchMessage.style.position = 'absolute';
+                touchMessage.style.top = '10px';
+                touchMessage.style.left = '50%';
+                touchMessage.style.transform = 'translateX(-50%)';
+                touchMessage.style.color = '#00ff00';
+                touchMessage.style.fontFamily = '"Comic Sans MS", cursive, sans-serif';
+                touchMessage.style.fontSize = '14px';
+                touchMessage.style.textShadow = '0 0 5px #00ff00';
+                touchMessage.style.zIndex = '10';
+                footer.appendChild(touchMessage);
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    touchMessage.style.opacity = '0';
+                    touchMessage.style.transition = 'opacity 1s ease-out';
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+
+</html>
